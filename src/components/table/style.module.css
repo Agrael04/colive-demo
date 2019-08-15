@@ -1,0 +1,11 @@
+.table {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.columns {
+  flex-basis: 80%;
+  overflow: hidden;
+  clear: both;
+}
