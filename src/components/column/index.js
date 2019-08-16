@@ -54,8 +54,8 @@ const Column = ({ title, cards, onDrop, addCard, reorderList }) => {
 
   return (
     <div ref={drop} className={ classnames(classes.column, isActive && classes.activeColumn) }>
-      <div>
-        <div>
+      <div className={ classes.head }>
+        <div className={ classes.headTitle }>
           {title}
         </div>
         <div className={ classes.cardsBlock }>
