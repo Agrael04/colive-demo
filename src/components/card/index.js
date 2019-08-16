@@ -26,7 +26,7 @@ const Card = ({ card }) => {
   })
   const opacity = isDragging ? 0.4 : 1
   return (
-    <div ref={drag} style={{ ...style, opacity }}>
+    <div ref={drag} style={{ ...style, opacity }} id={card.id}>
       {card.name}
     </div>
   )

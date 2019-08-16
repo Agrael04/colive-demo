@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Column from '../column'
-import Card from '../card'
 
 import classes from './style.module.css'
 
@@ -35,9 +34,7 @@ function App() {
 
     Object.keys(setters).map(key => {
       if (key === columnName) {
-        if (!values[key].find(c => c.id === card.id)) {
-          setters[key]([...values[key], card])
-        }
+        setters[key]([...values[key], card])
       } else {
         setters[key](values[key].filter(c => {
           return c.id !== card.id
@@ -45,14 +42,61 @@ function App() {
       }
     })
   }
+  
+  const addCard = (columnName) => (name) => {
+    const values = {
+      todo,
+      inProgress,
+      qa,
+      done
+    }
 
+    const setters = {
+      todo: setTodo,
+      inProgress: setInProgress,
+      qa: setQa,
+      done: setDone
+    }
+
+    Object.keys(setters).map(key => {
+      if (key === columnName) {
+        setters[key]([...values[key], { name, id: (new Date()).getTime() }])
+      }
+    })
+  }
+  
+  const reorderList = (columnName) => (newIndex, card) => {
+    const values = {
+      todo,
+      inProgress,
+      qa,
+      done
+    }
+
+    const setters = {
+      todo: setTodo,
+      inProgress: setInProgress,
+      qa: setQa,
+      done: setDone
+    }
+
+    Object.keys(setters).map(key => {
+      if (key === columnName) {
+        if (values[key].findIndex(item => item.id === card.id) !== newIndex) {
+          let arr = values[key].filter(item => item.id !== card.id)
+          arr.splice(newIndex, 0, card)
+          setters[key](arr)
+        }
+      }
+    })
+  }
   return (
     <div className={ classes.table }>
       <div className={ classes.columns }>
-        <Column title='To do' cards={todo} onDrop={handleDrop('todo')}/>
-        <Column title='In progress' cards={inProgress} onDrop={handleDrop('inProgress')}/>
-        <Column title='QA' cards={qa} onDrop={handleDrop('qa')}/>
-        <Column title='Done' cards={done} onDrop={handleDrop('done')}/>
+        <Column title='To do' cards={todo} onDrop={handleDrop('todo')} addCard={addCard('todo')} reorderList={reorderList('todo')}/>
+        <Column title='In progress' cards={inProgress} onDrop={handleDrop('inProgress')} addCard={addCard('inProgress')} reorderList={reorderList('inProgress')}/>
+        <Column title='QA' cards={qa} onDrop={handleDrop('qa')} addCard={addCard('qa')} reorderList={reorderList('qa')}/>
+        <Column title='Done' cards={done} onDrop={handleDrop('done')} addCard={addCard('done')} reorderList={reorderList('done')}/>
       </div>
     </div>
   )

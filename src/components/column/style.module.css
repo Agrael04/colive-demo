@@ -22,3 +22,19 @@
   display: flex;
   flex-direction: column;
 }
+
+.addHereBlock {
+  background-color: #333;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.addHereInputBlock {
+  display: flex;
+}
+
+.input {
+  padding: 5px 10px;
+  width: 75%;
+}
+
