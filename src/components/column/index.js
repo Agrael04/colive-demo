@@ -64,16 +64,6 @@ const Column = ({ title, cards, onDrop, addCard, reorderList }) => {
               <Card card={card} />
             ))
           }
-          {
-            cards.map(card => (
-              <Card card={card} />
-            ))
-          }
-          {
-            cards.map(card => (
-              <Card card={card} />
-            ))
-          }
         </div>
       </div>
       {
